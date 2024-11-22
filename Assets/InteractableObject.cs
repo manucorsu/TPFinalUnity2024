@@ -43,7 +43,7 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    public void PlayObjectAnimation()
+    public void Activate()
     {
         animator.SetTrigger("Open");
         Activated = true;
