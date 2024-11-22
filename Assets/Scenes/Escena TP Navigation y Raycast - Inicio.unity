@@ -865,6 +865,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4110550865819270217, guid: c07a963ad4be4e14f9be9da283e17104,
+        type: 3}
+      propertyPath: nombre
+      value: puerta
+      objectReference: {fileID: 0}
     - target: {fileID: 4110550865819270219, guid: c07a963ad4be4e14f9be9da283e17104,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2336,6 +2341,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &935691102 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8301348219256675487, guid: d23a71d629ca2cb428e58efdcf5d4c1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 942742380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &935691103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935691102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257dd3291b9c69f4798371ef623aa535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayOrigin: {fileID: 935691105}
+  rayLength: 1.36
+  layer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  uiGO: {fileID: 1491275411}
+  hintText: {fileID: 1845450029}
+  hintTime: 5
+--- !u!4 &935691105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8301348219256438975, guid: d23a71d629ca2cb428e58efdcf5d4c1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 942742380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &936555211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4608,6 +4645,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1412692375905199779, guid: 1a07368a60fe92540bc886469a263101,
+        type: 3}
+      propertyPath: m_Text
+      value: "Presion\xE1 [E] para abrir la ventana."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412692376898368630, guid: 1a07368a60fe92540bc886469a263101,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000095367
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412692376898368630, guid: 1a07368a60fe92540bc886469a263101,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 879.3513
+      objectReference: {fileID: 0}
     - target: {fileID: 1727160916438091172, guid: 1a07368a60fe92540bc886469a263101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4695,6 +4747,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6451782, y: 3.0376189, z: 0.1258572}
   m_Center: {x: -0.8224036, y: 1.518706, z: 0.06269191}
+--- !u!1 &1491275411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7689610407281160858, guid: 1a07368a60fe92540bc886469a263101,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442225217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1534039006
 GameObject:
   m_ObjectHideFlags: 0
@@ -5590,6 +5648,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 572225120}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1845450029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1412692375905199779, guid: 1a07368a60fe92540bc886469a263101,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442225217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1859035461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6298,6 +6368,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4110550865819270217, guid: c07a963ad4be4e14f9be9da283e17104,
+        type: 3}
+      propertyPath: activated
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110550865819270217, guid: c07a963ad4be4e14f9be9da283e17104,
+        type: 3}
+      propertyPath: nombre
+      value: puerta
+      objectReference: {fileID: 0}
     - target: {fileID: 4110550865819270219, guid: c07a963ad4be4e14f9be9da283e17104,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6550,6 +6630,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 834711617}
     m_Modifications:
+    - target: {fileID: 6809618457230802113, guid: ac5b5677ebb1c50499b8b605f67fce8e,
+        type: 3}
+      propertyPath: nombre
+      value: ventana
+      objectReference: {fileID: 0}
     - target: {fileID: 6809618457230802115, guid: ac5b5677ebb1c50499b8b605f67fce8e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6689,6 +6774,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 834711617}
     m_Modifications:
+    - target: {fileID: 6898530568209965016, guid: 92d714aee1ded364d81aeb479c61d80e,
+        type: 3}
+      propertyPath: genero
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898530568209965016, guid: 92d714aee1ded364d81aeb479c61d80e,
+        type: 3}
+      propertyPath: nombre
+      value: locker
+      objectReference: {fileID: 0}
     - target: {fileID: 6898530568209965018, guid: 92d714aee1ded364d81aeb479c61d80e,
         type: 3}
       propertyPath: m_StaticEditorFlags

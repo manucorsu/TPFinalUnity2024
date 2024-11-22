@@ -6,59 +6,61 @@ using UnityEngine.UI;
 public class RaycastInteraction : MonoBehaviour
 {
     public Transform rayOrigin;
-    public float rayLenght;
+    public float rayLength;
     public LayerMask layer;
     public GameObject uiGO;
     public Text hintText;
     public float hintTime;
-    public string defaultHint;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Coroutine showHintDuringTime;
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
         InteractableObject interactable = null;
-        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLenght, layer))
-        {            
+        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLength, layer))
+        {
             interactable = hit.collider.GetComponent<InteractableObject>();
             if (interactable)
             {
-            }
-        }
-        uiGO.SetActive(interactable);
-        if (interactable && Input.GetKeyDown(KeyCode.E))
-        {
-            string message = "";
-            if (!interactable.activated)
-            {
-                interactable.PlayObjectAnimation();
-                message = "Succesfully open!";
-            }
-            else
-            {
-                message = "It's already open!";
-            }
-            StopAllCoroutines();
-            StartCoroutine(ShowHintDuringTime(message));
-        }
+                if (showHintDuringTime == null || !interactable.Activated)
+                {
+                    uiGO.SetActive(true);
+                    hintText.text = interactable.GetPressEHint();
+                }
 
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    string message;
+                    if (!interactable.Activated)
+                    {
+                        interactable.PlayObjectAnimation();
+                        message = interactable.GetSuccessfullyOpenedHint();
+                    }
+                    else
+                    {
+                        message = interactable.GetAlreadyOpenedHint();
+                    }
+                    StopAllCoroutines();
+                    showHintDuringTime = StartCoroutine(ShowHintDuringTime(message, hintTime));
+                }
+            }
+        }
     }
 
+#if UNITY_EDITOR //solo para la good coding practise
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + rayOrigin.forward * rayLenght);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + rayOrigin.forward * rayLength);
     }
+#endif
 
-    IEnumerator ShowHintDuringTime(string hintMessage)
+    IEnumerator ShowHintDuringTime(string hintMessage, float hintTime)
     {
         float time = 0;
         hintText.text = hintMessage;
+        uiGO.SetActive(true);
         while (time < hintTime)
         {
             time += Time.deltaTime;
@@ -66,7 +68,6 @@ public class RaycastInteraction : MonoBehaviour
             yield return null;
         }
         uiGO.SetActive(false);
-        hintText.text = defaultHint;
     }
 
 }
