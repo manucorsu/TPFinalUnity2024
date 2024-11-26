@@ -8,36 +8,36 @@ public class RaycastInteraction : MonoBehaviour
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private float rayLength;
     [SerializeField] private LayerMask layer;
-    [SerializeField] private GameObject uiGO;
-    [SerializeField] private Text hintText;
-    [SerializeField] private float hintTime;
-    private Coroutine coroutineShowTimedHint;
+    [SerializeField] private float hintTimeBacking;
+    public static float HintTime { get; private set; }
 
+    private void Awake()
+    {
+        HintTime = hintTimeBacking;
+    }
     private void Update()
     {
         RaycastHit hit;
         InteractableObject interactable = null;
         if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLength, layer))
         {
-            interactable = hit.collider.GetComponent<InteractableObject>();
+            interactable = GetGameObjectFromRaycastHit(hit, false).GetComponent<InteractableObject>();
             if (interactable != null)
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.Activate();
-                    string message;
-                    if (interactable.Activated) message = interactable.GetAlreadyOpenedHint();
-                    else message = interactable.GetSuccessfullyOpenedHint();
-
-                    StopAllCoroutines();
-                    coroutineShowTimedHint = StartCoroutine(ShowTimedHint(hintTime, message));
                 }
-                else hintText.text = interactable.GetPressEHint();
+                else if (!interactable.Activated)
+                {
+                    interactable.ShowEHint();
+                }
             }
         }
-        if (coroutineShowTimedHint == null) uiGO.SetActive(interactable);
-        if (coroutineShowTimedHint == null) Debug.Log(null);
-        else Debug.Log("not null");
+        if ((!UIManager.Instance.TimedHintCrRunning && !interactable) || (interactable && interactable.Activated)))
+        {
+            UIManager.Instance.SetUIGOActive(false);
+        }
     }
 
 #if UNITY_EDITOR //solo para la good coding practise
@@ -48,22 +48,15 @@ public class RaycastInteraction : MonoBehaviour
     }
 #endif
 
-    private IEnumerator ShowTimedHint(float hintTime, string hint)
-    { 
-        if (hintTime <= 0)
-            throw new System.ArgumentException($"'{nameof(hintTime)}' debe ser mayor a 0");
-        if (hint == "")
-            Debug.LogWarning($"'{nameof(hint)}' es un string vacío");
 
-        float time = 0;
-        while (time < hintTime)
+
+    public static GameObject GetGameObjectFromRaycastHit(RaycastHit hit, bool getRootGO = true)
+    {
+        GameObject go = hit.collider.gameObject;
+        if (getRootGO)
         {
-            time += Time.deltaTime;
-            uiGO.SetActive(true);
-            hintText.text = hint;
-            yield return null;
+            return go.transform.root.gameObject;
         }
-
-        uiGO.SetActive(false);
+        else return go;
     }
 }

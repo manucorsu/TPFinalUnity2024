@@ -10,15 +10,20 @@ public enum Genero //género de la palabra del objeto (la/esta puerta, el/este l
 
 public class InteractableObject : MonoBehaviour
 {
-    [field: SerializeField] public bool Activated { get; private set; } = false; 
+    [field: SerializeField] public bool Activated { get; private set; } = false;
     //el field:SerializeField es solo para poder verlo del inspector, no se debe tocar desde ahí
-    
+
     [SerializeField] private Animator animator;
     [SerializeField] private Genero genero;
     private string art;
     private string este;
     private string abierto;
     [SerializeField] private string nombre;
+
+    private string pressEHint;
+    private string succesfullyOpenedHint;
+    private string alreadyOpenedHint;
+    private float ht;
 
     private void Awake()
     {
@@ -41,15 +46,34 @@ public class InteractableObject : MonoBehaviour
             este = "Este";
             abierto = "abierto";
         }
+
+        pressEHint = $"Presiona [E] para abrir {art} {nombre}.";
+        succesfullyOpenedHint = $"Abriste {art} {nombre}.";
+        alreadyOpenedHint = $"{este} {nombre} ya está {abierto}.";
+        Activated = false;
+    }
+
+    private void Start()
+    {
+        ht = RaycastInteraction.HintTime;
     }
 
     public void Activate()
     {
-        animator.SetTrigger("Open");
-        Activated = true;
+        if (!Activated)
+        {
+            animator.SetTrigger("Open");
+            Activated = true;
+            UIManager.Instance.StartShowTimedHint(succesfullyOpenedHint, Color.white, ht);
+        }
+        else
+        {
+            UIManager.Instance.StartShowTimedHint(alreadyOpenedHint, Color.white, ht);
+        }
     }
 
-    public string GetPressEHint() => $"Presiona [E] para abrir {art} {nombre}.";
-    public string GetSuccessfullyOpenedHint() => $"Abriste {art} {nombre}.";
-    public string GetAlreadyOpenedHint() => $"{este} {nombre} ya está {abierto}.";
+    public void ShowEHint()
+    {
+        UIManager.Instance.SetHintText(pressEHint, Color.white);
+    }
 }

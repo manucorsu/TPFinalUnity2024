@@ -10,8 +10,8 @@ public class SentryBotAnimationManager : MonoBehaviour
 
     void Awake()
     {
-        agent =GetComponentInParent<NavMeshAgent>();
-        anim = GetComponent<Animator>();        
+        if (!agent) agent = GetComponentInParent<NavMeshAgent>();
+        if (!anim) anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -21,7 +21,7 @@ public class SentryBotAnimationManager : MonoBehaviour
 
     public void OpenDome(bool value)
     {
-       anim.SetBool("DomeIsOpen", value);
+        anim.SetBool("DomeIsOpen", value);
     }
 
     public void CameraScan(bool value)

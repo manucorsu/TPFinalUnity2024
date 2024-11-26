@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SentryBotBehavior : MonoBehaviour
 {
-    public Transform[] waypoints;
-    public bool isPatrolling;
-    public int currentWaypoint = 0;
-    public Transform targetTR;
-    public NavMeshAgent agent;
-    public bool isArrived;
-    // Start is called before the first frame update
-    
-    void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
-    void Start()
-    {
+    [SerializeField] private Transform[] waypoints;
+    public bool Patrolling { get; private set; }
+    private int currentWaypoint = 0;
+    private Transform targetTR;
+    [SerializeField] private NavMeshAgent agent;
+    private bool arrived;
+    [SerializeField] private Color foundYouTxtColor;
 
+    private void Awake()
+    {
+        if(!agent) agent = GetComponent<NavMeshAgent>();
+        Patrolling = true;
     }
 
+    public void StartAggro(Transform target)
+    {
+        if (Patrolling)
+        {
+            targetTR = target;
+            Patrolling = false;
+            UIManager.Instance.StartShowTimedHint("¡Te vio el robot!", foundYouTxtColor, 5);
+        }
+    }
 
-    // Update is called once per frame
     void Update()
     {
         if (targetTR)
@@ -32,12 +36,12 @@ public class SentryBotBehavior : MonoBehaviour
             agent.destination = targetTR.position;
         }
 
-        isArrived = agent.remainingDistance < agent.stoppingDistance;
+        arrived = agent.remainingDistance < agent.stoppingDistance;
 
-        if (isPatrolling)
+        if (Patrolling)
         {
-            if (isArrived)
-            {                
+            if (arrived)
+            {
                 currentWaypoint++;
                 if (currentWaypoint >= waypoints.Length)
                 {

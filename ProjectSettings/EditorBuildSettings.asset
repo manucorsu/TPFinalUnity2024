@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Escena TP Navigation y Raycast - Inicio.unity
+    guid: 2cb82dcc826a7394b8538d6fb12c437f
   m_configObjects: {}

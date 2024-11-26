@@ -5,27 +5,34 @@ using UnityEngine;
 public class SentryBotRaycastDetection : MonoBehaviour
 {
     public Transform rayOrigin;
-    public float rayLenght;
+    public float rayLength;
     public LayerMask layerMask;
+    private SentryBotBehavior targeter;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-
+        targeter = this.gameObject.GetComponent<SentryBotBehavior>();
+        if (rayLength <= 0) rayLength = float.MaxValue;
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLenght, layerMask))
+        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLength, layerMask))
         {
-            
+            GameObject hitGO = RaycastInteraction.GetGameObjectFromRaycastHit(hit);
+            if (hitGO.CompareTag("Player"))
+            {
+                if(targeter.Patrolling) targeter.StartAggro(hitGO.transform);
+            }
         }
     }
 
-    void OnDrawGizmos()
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + rayOrigin.forward * rayLength);
     }
+#endif
 }
