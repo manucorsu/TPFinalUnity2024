@@ -25,7 +25,7 @@ public class SentryBotBehavior : MonoBehaviour
         {
             targetTR = target;
             Patrolling = false;
-            UIManager.Instance.StartShowTimedHint("¡Te vio el robot!", foundYouTxtColor, 5);
+            UIManager.Instance.StartShowingTimedHint("¡Te vio el robot!", foundYouTxtColor, 5);
         }
     }
 

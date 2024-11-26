@@ -13,15 +13,17 @@ public class RaycastInteraction : MonoBehaviour
 
     private void Awake()
     {
-        HintTime = hintTimeBacking;
+        if (hintTimeBacking > 0) HintTime = hintTimeBacking;
+        else HintTime = 5;
     }
+
     private void Update()
     {
         RaycastHit hit;
         InteractableObject interactable = null;
         if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayLength, layer))
         {
-            interactable = GetGameObjectFromRaycastHit(hit, false).GetComponent<InteractableObject>();
+            interactable = GetGameObjectFromRaycastHit(hit, getRootGO: false).GetComponent<InteractableObject>();
             if (interactable != null)
             {
                 if (Input.GetKeyDown(KeyCode.E))
@@ -34,9 +36,13 @@ public class RaycastInteraction : MonoBehaviour
                 }
             }
         }
-        if ((!UIManager.Instance.TimedHintCrRunning && !interactable) || (interactable && interactable.Activated)))
+        if (!UIManager.Instance.TimedHintCrRunning)
         {
-            UIManager.Instance.SetUIGOActive(false);
+            if (!interactable || (interactable && interactable.Activated))
+            {
+                UIManager.Instance.SetHintUIActive(false);
+            }
+            else UIManager.Instance.SetHintUIActive(true);
         }
     }
 
@@ -47,7 +53,6 @@ public class RaycastInteraction : MonoBehaviour
         Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + rayOrigin.forward * rayLength);
     }
 #endif
-
 
 
     public static GameObject GetGameObjectFromRaycastHit(RaycastHit hit, bool getRootGO = true)

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    [SerializeField] private GameObject uiGO;
+    [SerializeField] private GameObject hintTextContainer;
     [SerializeField] private Text hintText;
     public bool TimedHintCrRunning { get; private set; }
 
@@ -17,11 +17,10 @@ public class UIManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         else Instance = this;
-
-        uiGO.SetActive(false);
+        SetHintUIActive(false);
     }
 
-    public void StartShowTimedHint(string msg, Color txtColor, float time)
+    public void StartShowingTimedHint(string msg, Color txtColor, float time)
     {
         if (time <= 0)
         {
@@ -51,15 +50,15 @@ public class UIManager : MonoBehaviour
         while (time < hintTime)
         {
             time += Time.deltaTime;
-            SetUIGOActive(true);
+            SetHintUIActive(true);
             SetHintText(msg, txtColor);
             yield return null;
         }
         TimedHintCrRunning = false;
     }
 
-    public void SetUIGOActive(bool a) {
-        uiGO.SetActive(a);
-        Debug.Log(a);
+    public void SetHintUIActive(bool a)
+    {
+        hintTextContainer.SetActive(a);
     }
 }

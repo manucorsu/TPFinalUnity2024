@@ -15,9 +15,9 @@ public class InteractableObject : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private Genero genero;
-    private string art;
-    private string este;
-    private string abierto;
+    private string the;
+    private string @this;
+    private string open;
     [SerializeField] private string nombre;
 
     private string pressEHint;
@@ -36,20 +36,20 @@ public class InteractableObject : MonoBehaviour
 
         if (genero == Genero.Femenino)
         {
-            art = "la";
-            este = "Esta";
-            abierto = "abierta";
+            the = "la";
+            @this = "Esta";
+            open = "abierta";
         }
         else
         {
-            art = "el";
-            este = "Este";
-            abierto = "abierto";
+            the = "el";
+            @this = "Este";
+            open = "abierto";
         }
 
-        pressEHint = $"Presiona [E] para abrir {art} {nombre}.";
-        succesfullyOpenedHint = $"Abriste {art} {nombre}.";
-        alreadyOpenedHint = $"{este} {nombre} ya está {abierto}.";
+        pressEHint = $"Presioná [E] para abrir {the} {nombre}.";
+        succesfullyOpenedHint = $"Abriste {the} {nombre}.";
+        alreadyOpenedHint = $"{@this} {nombre} ya está {open}.";
         Activated = false;
     }
 
@@ -64,11 +64,11 @@ public class InteractableObject : MonoBehaviour
         {
             animator.SetTrigger("Open");
             Activated = true;
-            UIManager.Instance.StartShowTimedHint(succesfullyOpenedHint, Color.white, ht);
+            UIManager.Instance.StartShowingTimedHint(succesfullyOpenedHint, Color.white, ht);
         }
         else
         {
-            UIManager.Instance.StartShowTimedHint(alreadyOpenedHint, Color.white, ht);
+            UIManager.Instance.StartShowingTimedHint(alreadyOpenedHint, Color.white, ht);
         }
     }
 
